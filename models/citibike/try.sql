@@ -6,15 +6,14 @@
 
     Try changing "table" to "view" below
 */
+-- ALTER SESSION SET TIMESTAMP_OUTPUT_FORMAT = 'YYYY-MM-DD HH24:MI:SS.FF9 TZH:TZM';
 
-{{ config(materialized='view') }}
+{{ config(materialized='table') }}
 
 with source_data as (
 
-    select 1 as id
-    union all
-    select null as id
-
+    select DATEDIFF(minute, STARTTIME,STOPTIME) as DURATION
+    from CITIBIKE.PUBLIC.TRIPDATA_2013
 )
 
 select *
